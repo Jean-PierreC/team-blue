@@ -1,5 +1,5 @@
 ﻿class AppConfig:
-	def _init_(self):
+	def __init__(self):
 		self.deviceID = 0
 		self.isFile = 0
 		self.isDevice = 0

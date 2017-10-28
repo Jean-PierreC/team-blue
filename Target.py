@@ -1,3 +1,5 @@
+import cv2
+
 class Target:
     
 	def __init__ (self, temp):   
@@ -56,3 +58,4 @@ class Target:
 	
 	def drawCnts(self, image):
 		cv2.drawContours(image, self.temp, -1, (255,255,255), 10)
+        

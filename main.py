@@ -5,16 +5,15 @@ from TargetProcessor import TargetProcessor
 from VideoDevice import VideoDevice
 from GUIManager import GUIManager
 
-import sys
 import cv2
 
-detector = TargetDetector()
-processor = TargetProcessor()
-camera = VideoDevice()
-cmdinp = ["name", "-d", "0"]
-interface = CmdLineInterface(cmdinp)
+detector = TargetDetector.TargetDetector()
+processor = TargetProcessor.TargetProcessor()
+camera = VideoDevice.VideoDevice()
+cmdinp = ["name", "-d", "0", "--no-networking", "--debug"]
+interface = CmdLineInterface.CmdLineInterface(cmdinp)
 config = interface.getConfig()
-gui = GUIManager()
+gui = GUIManager.GUIManager()
 
 if(config.getIsDevice()):
 	camera.startCapture(config.getDeviceID())
