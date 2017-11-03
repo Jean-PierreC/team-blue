@@ -1,43 +1,40 @@
 ﻿from AppConfig import AppConfig
 
 class CmdLineInterface:
-	def printUsage(self):
-		print( "Usage: program (-d <device_num>) [--no-networking] [--headless] [--debug]")
+    def printUsage(self):
+        print( "Usage: program (-d <device_num>) [--no-networking] [--headless] [--debug]")
 
-	def __init__(self, inargs):
-		while(True):
-			self.arg = inargs[1]
-			self.config = AppConfig()
-			self.cmdnum = 3
-		
-			if len(inargs) < 3:
-				if (self.arg == "-d" and isinstance(inargs[2], int)):
-					self.config.setIsDevice(1)
-					self.config.setDeviceID(inargs[2])
-				else:
-					self.printUsage()
-					break
+    def __init__(self, inargs):
+        self.config = AppConfig()
+        self.cmdnum = 3
+        if (inargs[1] == "-d"):
+            self.config.setIsDevice(1)
+            idnum = (int)(inargs[2])
+            self.config.setDeviceID(idnum)
+        else:
+            self.printUsage()
 
-			elif (len(inargs) > 3):
-				if (inargs[self.cmdnum] == "--no-networking"):
-					self.config.setIsNetworking(0)
-					self.cmdnum += 1
-					if (self.cmdnum == len(inargs)):
-						break
-				if (inargs[self.cmdnum] == "--headless"):
-					self.config.setIsHeadless(1)
-					self.cmdnum += 1
-					if (self.cmdnum == len(inargs)):
-						break
-				if (inargs[self.cmdnum] == "--isDebug"):
-					self.config.setIsDebug(1)
-					self.cmdnum += 1
-					if (self.cmdnum == len(inargs)):
-						break
-			else:
-				self.printUsage()
-				break
+        if (len(inargs) > 3):
+            count = 0
+            for darg in inargs:
+                if (darg == "--no-networking"):
+                    self.config.setIsNetworking(0)
+
+                elif (darg == "--headless"):
+                    self.config.setIsHeadless(1)
+
+                elif (darg == "--isDebug"):
+                    self.config.setIsDebug(1)
+                    
+                else:
+                    if (count > 2):
+                        print("noonon")
+                        self.printUsage()
+                        break
+
+        else:
+            self.printUsage()
 			
-	def getConfig(self):
-		return self.config
+    def getConfig(self):
+        return self.config
 	

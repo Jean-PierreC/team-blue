@@ -10,38 +10,42 @@ class TargetProcessor:
     vertiCent = 0
     imgWidth = 0
     imgHeight = 0
-    def __init__():
+    def __init__(self):
         global RectHeight
         global RectWidth
         global focalLen
         global horizCent
         global vertiCent
-        RectHeight = 500
-        RectWidth = 200
-        focalLen = 486
-        horizCent = 200
-        vertiCent = 333
-    def loadTarget(target):
+        RectHeight = 0.02
+        RectWidth = 0.05
+        focalLen = 480
+        horizCent = 240
+        vertiCent = 320
+    def loadTarget(self, target):
         global imgWidth
         global imgHeight
         global offsetX
         global offsetY
-        imgWidth = Target.target.getWidth()
-        imgHeight = Target.target.getHeight()
+        imgWidth = target.getWidth()
+        imgHeight = target.getHeight()
         imgCenter = target.getCenter()
         RectcentX = imgCenter[0]
         RectcentY = imgCenter[1]
-        offsetX = math.fabs(RectcentX - horizCent)
-        offsetY = math.fabs(RectcentY - vertiCent)
+        offsetX = float(RectcentX - horizCent)
+        offsetY = float(-1*(RectcentY - vertiCent))
+        
 
-    def findDistance():
-        dist = RectWidth * focalLen / imgWidth
-        return (dist)
+    def findDistance(self):
+        if imgWidth == 0:
+            return (0)
+        else:
+            dist = RectWidth * focalLen / imgWidth
+            return (dist)
 
-    def findAzimuth():
+    def findAzimuth(self):
         azimuth = np.arctan(offsetX/ focalLen)*180/math.pi
         return (azimuth)
 
-    def findAltitude():
+    def findAltitude(self):
         altit = np.arctan(offsetY/ focalLen)*180/math.pi
         return (altit)

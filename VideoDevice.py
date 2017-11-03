@@ -6,7 +6,7 @@ class VideoDevice:
         self.camera = cv2.VideoCapture(id)
 
     def getImage(self):
-        image = self.camera.read()
+        ret, image = self.camera.read()
         return image
 
 
