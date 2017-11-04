@@ -28,8 +28,9 @@ if(config.getIsDebug()):
 loop = 1
 
 while(cv2.waitKey(30) != 27):
-		
     print ("While Loop %s \n") % loop
+    thIn = [0, 180, 228, 255]
+    detector.threshInputs(thIn)
 
     image = camera.getImage()
 		
@@ -43,8 +44,6 @@ while(cv2.waitKey(30) != 27):
         
     
     if (detector.getFound() == True):
-        
-        print detected
         
         target = Target(detected)
     	
@@ -85,8 +84,14 @@ while(cv2.waitKey(30) != 27):
         dis = "Not Found"
         azi = "Not Found"
         alt = "Not Found"
+        wid = "Image Width: %s" % target.getWidth()
+        hue = "Hue: %s - %s" % (thIn[0], thIn[1])
+        val = "Value: %s - %s" % (thIn[2], thIn[3])
     
     gui.setImage(image)
+    gui.setText(hue, -2)
+    gui.setText(val, -1)
+    gui.setText(wid, 0)
     gui.setText(dis, 1)
     gui.setText(azi, 2)
     gui.setText(alt, 3)

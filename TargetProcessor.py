@@ -1,4 +1,4 @@
-import numpy as np
+"""import numpy as np
 import math
 
 from Target import Target
@@ -38,8 +38,9 @@ class TargetProcessor:
     def findDistance(self):
         if imgWidth == 0:
             return (0)
+            print("hihih")
         else:
-            dist = RectWidth * focalLen / imgWidth
+            dist = float(RectWidth * focalLen) / imgWidth
             return (dist)
 
     def findAzimuth(self):
@@ -48,4 +49,39 @@ class TargetProcessor:
 
     def findAltitude(self):
         altit = np.arctan(offsetY/ focalLen)*180/math.pi
+        return (altit)"""
+        
+import numpy as np
+import math
+
+from Target import Target
+class TargetProcessor:
+    def __init__(self):
+        self.RectHeight = 0.02
+        self.RectWidth = 0.05
+        self.focalLen = 480
+        self.horizCent = 240
+        self.vertiCent = 320
+    def loadTarget(self, target):
+        self.imgWidth = target.getWidth()
+        self.imgHeight = target.getHeight()
+        imgCenter = target.getCenter()
+        RectcentX = imgCenter[0]
+        RectcentY = imgCenter[1]
+        self.offsetX = float(RectcentX - self.horizCent)
+        self.offsetY = float(-1*(RectcentY - self.vertiCent))
+        
+
+    def findDistance(self):
+        if self.imgWidth == 0:
+            self.imgWidth = 1
+        dist = float(self.RectWidth * self.focalLen) / self.imgWidth
+        return (dist)
+
+    def findAzimuth(self):
+        azimuth = np.arctan(self.offsetX/ self.focalLen)*180/math.pi
+        return (azimuth)
+
+    def findAltitude(self):
+        altit = np.arctan(self.offsetY/ self.focalLen)*180/math.pi
         return (altit)

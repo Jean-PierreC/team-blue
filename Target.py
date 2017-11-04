@@ -2,37 +2,39 @@ import cv2
 
 class Target:
     
-    def __init__ (self, enter):
+    def __init__ (self, temp):
         
-        temp = enter[0]
-        
+
         avgX = 0
 
         avgY = 0
   
-        minX = temp[0][0]
+        minX = temp[0][0][0]
 
-        maxX = temp[0][0]
+        maxX = temp[0][0][0]
    
-        minY = temp[0][1]
+        minY = temp[0][0][1]
 
-        maxY = temp[0][1]
+        maxY = temp[0][0][1]
         
         for p in temp:
             
-            if p[0] < minX:
-                minX = p[0]            
+            if p[0][0] < minX:
+                minX = p[0][0]
+                print(minX)
             
-            if p[0] > maxX:
-                maxX = p[0]         
+            if p[0][0] > maxX:
+                maxX = p[0][0]
+                print(maxX)
 			
-            if p[1] < minY:
-                minY = p[1]
+            if p[0][1] < minY:
+                minY = p[0][1]
             
-            if p[1] > maxY:
-                maxY = p[1]
-
-        
+            if p[0][1] > maxY:
+                maxY = p[0][1]
+        print("spaace")
+        print(maxX)
+        print(minX)
         self.width = maxX-minX
         
         self.height = maxY-minY

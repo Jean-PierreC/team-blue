@@ -2,6 +2,17 @@ import cv2
 import numpy as np
 import math
 class TargetDetector:
+    def __init__(self):
+        self.minHue = 40
+        self.maxHue = 80
+        self.minVal = 200
+        self.maxVal = 255
+    def threshInputs(self, th):
+        self.minHue = th[0]
+        self.maxHue = th[1]
+        self.minVal = th[2]
+        self.maxVal = th[3]
+        
     def TargetDetect(self, img):
         def angle(p1, p2, p0):
             dx1 = p1[0][0]-p0[0][0]
@@ -27,13 +38,13 @@ class TargetDetector:
         count = -1
         img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-        THRESHOLD_MIN = np.array([40, 0, 200],np.uint8)
-        THRESHOLD_MAX = np.array([80, 255,255],np.uint8)
+        THRESHOLD_MIN = np.array([self.minHue, 0, self.minVal],np.uint8)
+        THRESHOLD_MAX = np.array([self.maxHue, 255,self.maxVal],np.uint8)
 
         frame = cv2.inRange(img_hsv, THRESHOLD_MIN,THRESHOLD_MAX)
         cv2.imshow("the", frame)
         contours, hierarchy = cv2.findContours(frame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(img, contours, -1, (255,255,0), 10)
+        
         
         area = 1
         longl = 1
@@ -41,17 +52,12 @@ class TargetDetector:
             count = count +1
             epsilon = 0.02*cv2.arcLength(cont,True)
             approx = cv2.approxPolyDP(cont, epsilon, True)
-            if cv2.contourArea(approx) > area:
-                area = cv2.contourArea(approx)
-                longl = len(approx)
-            if len(approx) > 3:
+            if cv2.contourArea(approx) > 100 and len(approx) == 4:
             #if right(approx,34):
-                print("hiya")
+                approx2 = [approx]
+                cv2.drawContours(img, approx2, -1, (255,255,0), 10)
                 self.found = True
                 return approx
                 
-                
-        print(area)
-        print(longl)
     def getFound(self):
         return self.found
