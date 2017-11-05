@@ -6,6 +6,7 @@
 		self.isHeadless = 0
 		self.isNetworking = 1
 		self.isDebug = 0
+    #possible values that need to be inputted to various classes through CmdLineInterface
 
 	def getDeviceID(self):
 		return self.deviceID
@@ -19,6 +20,7 @@
 		return self.isNetworking
 	def getIsDebug(self):
 		return self.isDebug
+    #outputs values stored in object
 
 	def setDeviceID(self, inp1):
 		self.deviceID = inp1
@@ -32,4 +34,5 @@
 		self.isNetworking = inp5
 	def setIsDebug(self, inp6):
 		self.isDebug = inp6
+    #sets values stored in objects
 
