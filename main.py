@@ -31,11 +31,11 @@ camera = VideoDevice()
 interface = CmdLineInterface(sys.argv) #cmdline input
 config = interface.getConfig() #AppConfig object that contains all values from cmdline inputs
 gui = GUIManager()
-if(config.getIsNetworking==1):
+if(config.getIsNetworking()==1):
     global network1
     network1 = network.Network()
     network1.userServer()
-elif(config.getIsNetworking==0):
+elif(config.getIsNetworking()==0):
     print ("hi")
 
 
