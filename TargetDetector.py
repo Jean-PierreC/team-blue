@@ -10,8 +10,10 @@ class TargetDetector:
     def threshInputs(self, th):
         self.minHue = th[0]
         self.maxHue = th[1]
-        self.minVal = th[2]
-        self.maxVal = th[3]
+        self.minSat = th[2]
+        self.maxSat = th[3]
+        self.minVal = th[4]
+        self.maxVal = th[5]
         #changes threshold values based on inputs
 
     def angle(self, p1, p2, p0):
@@ -43,8 +45,8 @@ class TargetDetector:
         count = -1
         img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) #converts to HSV colorspace
 
-        THRESHOLD_MIN = np.array([self.minHue, 0, self.minVal],np.uint8)
-        THRESHOLD_MAX = np.array([self.maxHue, 255,self.maxVal],np.uint8)
+        THRESHOLD_MIN = np.array([self.minHue, self.minSat, self.minVal],np.uint8)
+        THRESHOLD_MAX = np.array([self.maxHue, self.maxSat, self.maxVal],np.uint8)
 
         frame = cv2.inRange(img_hsv, THRESHOLD_MIN,THRESHOLD_MAX)
         #thresholds based off values in object

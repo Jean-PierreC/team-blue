@@ -31,12 +31,12 @@ camera = VideoDevice()
 interface = CmdLineInterface(sys.argv) #cmdline input
 config = interface.getConfig() #AppConfig object that contains all values from cmdline inputs
 gui = GUIManager()
-if(config.getIsNetworking()==1):
+networking = config.getIsNetworking()
+if(networking):
     global network1
     network1 = network.Network()
     network1.userServer()
-elif(config.getIsNetworking()==0):
-    print ("hi")
+
 
 
 #creates class instances
@@ -50,7 +50,7 @@ loop = 1
 
 while(cv2.waitKey(30) != 27):
     print ("While Loop " + str(loop) + "  \n")
-    thIn = [0, 180, 228, 255] #thresholding values subject to change
+    thIn = [53, 58, 5, 255, 228, 238] #thresholding values subject to change
     detector.threshInputs(thIn)
 
     image = camera.getImage() #live feed image
@@ -104,7 +104,7 @@ while(cv2.waitKey(30) != 27):
         dis = "distance: %s" % distance
         azi = "azimuth: %s" % azimuth
         alt = "altitude: %s" % altitude
-        if(config.getIsNetworking==True):
+        if(networking):
             network1.setDistance(str(distance))
             network1.setAzimuth(str(azimuth))
             network1.setAltitude(str(altitude))
