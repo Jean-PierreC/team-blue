@@ -35,4 +35,3 @@
 	def setIsDebug(self, inp6):
 		self.isDebug = inp6
     #sets values stored in objects
-

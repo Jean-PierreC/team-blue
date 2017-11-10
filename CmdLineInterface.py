@@ -13,7 +13,7 @@ class CmdLineInterface:
             idnum = (int)(inargs[2])
             self.config.setDeviceID(idnum) #sets deviceID to the second input as a integer
         else: #cmdline error
-            self.printUsage() 
+            self.printUsage()
 
         if (len(inargs) > 3): #if there are more than just -d and int
             count = 0
@@ -26,12 +26,16 @@ class CmdLineInterface:
 
                 elif (darg == "--isDebug"): #if the argument being checked is isDebug, set it to 1
                     self.config.setIsDebug(1)
-                    
+
                 else: #if an unknown word was entered
                     if (count > 2): #if the for loop is not on -d or int, first 2 arguments, cmdline error
                         self.printUsage()
                         break
-			
+
+        else:
+            self.config.setIsNetworking(1)
+            self.config.setIsHeadless(0)
+            self.config.setIsDebug(0)
+
     def getConfig(self): #outputs the AppConfig object with all the stored values
         return self.config
-	
