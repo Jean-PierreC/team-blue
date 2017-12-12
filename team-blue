@@ -1,5 +1,6 @@
 import numpy as np #math libraries
 import cv2 #opencv itself
+
 def nothing(x):
 	pass
 
@@ -17,16 +18,16 @@ cv2.namedWindow('Control Panel')
 
 # Creating track bar
 #cv.CreateTrackbar(trackbarName, windowName, value, count, onChange)  None
-cv2.createTrackbar('hue', 'Control Panel',69,180,nothing)#default 0 205 255 69 8 12
+cv2.createTrackbar('hue', 'Control Panel',68,180,nothing)#default 0 205 255 69 8 12
 cv2.createTrackbar('sat', 'Control Panel',255,255,nothing)
-cv2.createTrackbar('val', 'Control Panel',153,255,nothing)
+cv2.createTrackbar('val', 'Control Panel',93,255,nothing)
 
 cv2.createTrackbar('ero', 'Control Panel',0,100,nothing)
 cv2.createTrackbar('dil', 'Control Panel',0,100,nothing)
 
-cv2.createTrackbar('Hue Range', 'Control Panel',21,180,nothing)
-cv2.createTrackbar('Sat Range', 'Control Panel',73,127,nothing)
-cv2.createTrackbar('Val Range', 'Control Panel',80,127,nothing)
+cv2.createTrackbar('Hue Range', 'Control Panel',44,180,nothing)
+cv2.createTrackbar('Sat Range', 'Control Panel',70,127,nothing)
+cv2.createTrackbar('Val Range', 'Control Panel',70,127,nothing)
 
 cap = cv2.VideoCapture(0)	
 
@@ -70,10 +71,9 @@ def trackRectangle(mask, frame):
 				print ("vertical don't shoot||||||||||")
 			else:
 				pass
-			#distance in inches = function of area in pixels.
-			#distance =3253*(w*h)**(-0.516) 
-			#print("x",x,"y", y,"w",w ,"h", h, "ratio", ratioHW, "inches=", distance, "area", w*h)
-			
+
+			print("x",x,"y", y,"w",w ,"h", h, "ratio", ratioHW)
+
 			#create rect object
 			rect = cv2.minAreaRect(cnt)
 
@@ -82,13 +82,9 @@ def trackRectangle(mask, frame):
 			#centerX = int(rect[0][0])
 			#centerY = int(rect[0][1])
 
-			rectWidth = rect [1][0]  # 2 matrix
-			# rect RED rect area from the countours creat it 
-			rectHeight = rect [1][1]
-			distance =3253*(rectWidth*rectHeight)**(-0.516) 
-			print("x",x,"y", y,"w",w ,"h", h, "ratio", ratioHW, "inches=", distance, "area", w*h)
+			#rectWidth = rect [1][0]
+			#rectHeight = rect [1][1]
 
-			
 			# Draw a diagonal blue line with thickness of 5 px
 			
 			# if rectWidth > 0 and rectHeight > 0:
